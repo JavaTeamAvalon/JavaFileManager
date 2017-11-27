@@ -1,22 +1,23 @@
 package JavaFileManager;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public interface LogicMethods {
 
-    void addDate (ArrayList<File> listFiles, boolean end, SimpleDateFormat dateFormat);
+    void addDate (ArrayList<File> listFiles, boolean end, SimpleDateFormat dateFormat) throws IOException;
     /*
      * Добавление даты в конец илиначало имени по заданному шаблону
      */
 
-    void addPrefix (ArrayList<File> listFiles, boolean end, String prefix);
+    void addPrefix (ArrayList<File> listFiles, boolean end, String prefix) throws IOException;
     /*
      * Добавление префикса или постфикса по заданному шаблону
      */
 
-    void changeExpansion (ArrayList<File> listFiles, String newExt);
+    void changeExpansion (ArrayList<File> listFiles, String newExt) throws IOException;
     /*
      * Изменение расширения файла или папки
      */
