@@ -11,12 +11,12 @@ public interface LogicMethods {
      * Добавление даты в конец илиначало имени по заданному шаблону
      */
 
-    void addSuffix (ArrayList<File> listFiles, boolean end, String prefix);
+    void addPrefix (ArrayList<File> listFiles, boolean end, String prefix);
     /*
      * Добавление префикса или постфикса по заданному шаблону
      */
 
-    void changeExpansion ();
+    void changeExpansion (ArrayList<File> listFiles, String newExt);
     /*
      * Изменение расширения файла или папки
      */

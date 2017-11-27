@@ -5,32 +5,32 @@ import java.util.ArrayList;
 
 public interface MainMethods {
 
-    public void buildingFileStructure ();
+    void buildingFileStructure ();
     /*
      * Построение файловой стурктуры
      */
 
-    public ArrayList<File> copyFilesToArray ();
+    ArrayList<File> copyFilesToArray ();
     /*
      * Копирование файлов в список
      */
 
-    public ArrayList<File> searchFiles ();
+    ArrayList<File> searchFiles ();
     /*
      * Поиск файлов
      */
 
-    public void pressRunButton ();
+    void pressRunButton ();
     /*
      * Выполнение выбранных операций
      */
 
-    public void saveSettings ();
+    void saveSettings ();
     /*
      * Сохранение настроек
      */
 
-    public void resetSettings ();
+    void resetSettings ();
     /*
      * Сброс настроек
      */
