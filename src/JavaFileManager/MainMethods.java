@@ -20,9 +20,19 @@ public interface MainMethods {
      * Поиск файлов
      */
 
+    public void pressRunButton ();
+    /*
+     * Выполнение выбранных операций
+     */
+
     public void saveSettings ();
     /*
      * Сохранение настроек
+     */
+
+    public void resetSettings ();
+    /*
+     * Сброс настроек
      */
 
 }
