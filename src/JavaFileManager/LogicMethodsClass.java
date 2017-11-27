@@ -18,13 +18,12 @@ public class LogicMethodsClass implements LogicMethods {
     }
 
     @Override
-    public void addPostfix() {
-
-    }
-
-    @Override
-    public void addSuffix() {
-
+    public void addSuffix(ArrayList<File> listFiles, boolean end, String prefix) {
+        for (File file: listFiles) {
+            if (end == true) {
+                file.renameTo(new java.io.File(file.getName() + prefix));
+            } else file.renameTo(new java.io.File(prefix + file.getName()));
+        }
     }
 
     @Override

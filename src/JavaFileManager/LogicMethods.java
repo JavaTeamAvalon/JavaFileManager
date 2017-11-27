@@ -11,14 +11,9 @@ public interface LogicMethods {
      * Добавление даты в конец илиначало имени по заданному шаблону
      */
 
-    void addPostfix ();
+    void addSuffix (ArrayList<File> listFiles, boolean end, String prefix);
     /*
-     * Добавление постфикса по заданному шаблону
-     */
-
-    void addSuffix ();
-    /*
-     * Добавление суффикса по заданному шаблону
+     * Добавление префикса или постфикса по заданному шаблону
      */
 
     void changeExpansion ();
