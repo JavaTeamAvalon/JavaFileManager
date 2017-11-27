@@ -8,25 +8,22 @@ import java.util.Date;
 
 public class LogicMethodsClass implements LogicMethods {
 
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd_MM_yy");
 
     @Override
     public void addDateToTheEnd(ArrayList<File> listFiles) {
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd_MM_yy");
         for (File file: listFiles) {
             file.renameTo(new java.io.File(file.getName() + " " + dateFormat.format(new Date())));
         }
-
     }
 
     @Override
     public void addDateInFront(ArrayList<File> listFiles) {
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd_MM_yy");
         for (File file: listFiles) {
             file.renameTo(new java.io.File(dateFormat.format(new Date()) + " " + file.getName()));
         }
-
     }
 
     @Override
