@@ -8,21 +8,12 @@ import java.util.Date;
 
 public class LogicMethodsClass implements LogicMethods {
 
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd_MM_yy");
-
     @Override
-    public void addDateToTheEnd(ArrayList<File> listFiles) {
-
+    public void addDate(ArrayList<File> listFiles, boolean end, SimpleDateFormat dateFormat) {
         for (File file: listFiles) {
-            file.renameTo(new java.io.File(file.getName() + " " + dateFormat.format(new Date())));
-        }
-    }
-
-    @Override
-    public void addDateInFront(ArrayList<File> listFiles) {
-
-        for (File file: listFiles) {
-            file.renameTo(new java.io.File(dateFormat.format(new Date()) + " " + file.getName()));
+            if (end = true) {
+                file.renameTo(new java.io.File(file.getName() + " " + dateFormat.format(new Date())));
+            } else file.renameTo(new java.io.File(dateFormat.format(new Date()) + " " + file.getName()));
         }
     }
 
@@ -45,4 +36,5 @@ public class LogicMethodsClass implements LogicMethods {
     public void changeOwner() {
 
     }
+
 }
