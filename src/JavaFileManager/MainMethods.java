@@ -1,5 +1,8 @@
 package JavaFileManager;
 
+import java.io.File;
+import java.util.ArrayList;
+
 public interface MainMethods {
 
     public void buildingFileStructure ();
@@ -7,12 +10,12 @@ public interface MainMethods {
      * Построение файловой стурктуры
      */
 
-    public void copyFilesToArray ();
+    public ArrayList<File> copyFilesToArray ();
     /*
      * Копирование файлов в список
      */
 
-    public void searchFiles ();
+    public ArrayList<File> searchFiles ();
     /*
      * Поиск файлов
      */
