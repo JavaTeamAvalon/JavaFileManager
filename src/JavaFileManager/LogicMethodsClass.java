@@ -11,7 +11,7 @@ public class LogicMethodsClass implements LogicMethods {
     @Override
     public void addDate(ArrayList<File> listFiles, boolean end, SimpleDateFormat dateFormat) {
         for (File file: listFiles) {
-            if (end = true) {
+            if (end == true) {
                 file.renameTo(new java.io.File(file.getName() + " " + dateFormat.format(new Date())));
             } else file.renameTo(new java.io.File(dateFormat.format(new Date()) + " " + file.getName()));
         }
