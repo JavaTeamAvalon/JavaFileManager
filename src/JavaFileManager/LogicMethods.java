@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public interface LogicMethods {
 
@@ -25,6 +26,11 @@ public interface LogicMethods {
     void changeOwner (ArrayList<File> listFiles, String newOwner) throws IOException;
     /*
      * Изменение владельца файла или папки
+     */
+
+    void changeCreateDate (ArrayList<File> listFiles, Date newDate) throws IOException;
+    /*
+     * Изменение даты создания файла или папки
      */
 
 }

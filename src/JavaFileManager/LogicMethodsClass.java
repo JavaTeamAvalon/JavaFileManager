@@ -28,7 +28,7 @@ public class LogicMethodsClass implements LogicMethods {
                         (file.getAbsolutePath()).substring(0, (file.getAbsolutePath()).lastIndexOf("\\"))
                                 + "." + (dateFormat.format(new Date()) + file.getName())));
             }
-            catch (Exception x1) {
+            catch (Exception ex1) {
                 System.out.println("Невозможно изменить файл.");
             }
         }
@@ -47,7 +47,7 @@ public class LogicMethodsClass implements LogicMethods {
                         (file.getAbsolutePath()).substring(0, (file.getAbsolutePath()).lastIndexOf("\\"))
                                 + "." + (prefix + file.getName())));
             }
-            catch (Exception x2) {
+            catch (Exception ex2) {
                 System.out.println("Невозможно изменить файл.");
             }
         }
@@ -63,7 +63,7 @@ public class LogicMethodsClass implements LogicMethods {
                 String nameWithoutExt = (file.getAbsolutePath()).substring(0,(file.getAbsolutePath()).lastIndexOf("."));
                 file.renameTo(new File(nameWithoutExt + "." + newExt));
             }
-            catch (Exception x3) {
+            catch (Exception ex3) {
                 System.out.println("Невозможно изменить расширение.");
             }
         }
@@ -71,21 +71,35 @@ public class LogicMethodsClass implements LogicMethods {
 
     @Override
     public void changeOwner(ArrayList<File> listFiles, String newOwner) throws IOException {
-        for (File files: listFiles) {
-            if (!files.exists()) {
-                System.out.printf("Файл не найден.", files.getCanonicalPath());
+        for (File file: listFiles) {
+            if (!file.exists()) {
+                System.out.printf("Файл не найден.", file.getCanonicalPath());
             }
             try {
-                Path file = Paths.get(files.getAbsolutePath());
+                Path pathFile = Paths.get(file.getAbsolutePath());
                 UserPrincipalLookupService lookupService = FileSystems.getDefault().getUserPrincipalLookupService();
                 UserPrincipal owner = lookupService.lookupPrincipalByName(newOwner);
-                Files.setOwner(file, owner);
+                Files.setOwner(pathFile, owner);
             }
-            catch (Exception x4) {
+            catch (Exception ex4) {
                 System.out.println("Невозможно изменить владельца.");
             }
         }
     }
 
+    @Override
+    public void changeCreateDate(ArrayList<File> listFiles, Date newDate) throws IOException {
+        for (File file: listFiles) {
+            if (!file.exists()) {
+                System.out.printf("Файл не найден.", file.getCanonicalPath());
+            }
+            try {
+                file.setLastModified(newDate.getTime());
+            }
+            catch (Exception ex5) {
+                System.out.println("Невозможно изменить дату последнего изменения файла.");
+            }
+        }
+    }
 
 }
