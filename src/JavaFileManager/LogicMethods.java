@@ -19,10 +19,10 @@ public interface LogicMethods {
 
     void changeExpansion (ArrayList<File> listFiles, String newExt) throws IOException;
     /*
-     * Изменение расширения файла или папки
+     * Изменение расширения файла
      */
 
-    void changeOwner ();
+    void changeOwner (ArrayList<File> listFiles, String newOwner) throws IOException;
     /*
      * Изменение владельца файла или папки
      */

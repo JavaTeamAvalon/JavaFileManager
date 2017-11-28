@@ -2,6 +2,12 @@ package JavaFileManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.UserPrincipal;
+import java.nio.file.attribute.UserPrincipalLookupService;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,8 +56,8 @@ public class LogicMethodsClass implements LogicMethods {
     @Override
     public void changeExpansion(ArrayList<File> listFiles, String newExt) throws IOException {
         for (File file: listFiles) {
-            if (!file.exists()) {
-                System.out.printf("Файл не найден.", file.getCanonicalPath());
+            if (!file.exists()||file.isDirectory()) {
+                System.out.printf("Файл не найден, либо указана папка, а не файл.", file.getCanonicalPath());
             }
             try {
                 String nameWithoutExt = (file.getAbsolutePath()).substring(0,(file.getAbsolutePath()).lastIndexOf("."));
@@ -64,8 +70,22 @@ public class LogicMethodsClass implements LogicMethods {
     }
 
     @Override
-    public void changeOwner() {
-
+    public void changeOwner(ArrayList<File> listFiles, String newOwner) throws IOException {
+        for (File files: listFiles) {
+            if (!files.exists()) {
+                System.out.printf("Файл не найден.", files.getCanonicalPath());
+            }
+            try {
+                Path file = Paths.get(files.getAbsolutePath());
+                UserPrincipalLookupService lookupService = FileSystems.getDefault().getUserPrincipalLookupService();
+                UserPrincipal owner = lookupService.lookupPrincipalByName(newOwner);
+                Files.setOwner(file, owner);
+            }
+            catch (Exception x4) {
+                System.out.println("Невозможно изменить владельца.");
+            }
+        }
     }
+
 
 }
