@@ -6,11 +6,19 @@ import java.awt.*;
 public class MainFrame extends JFrame {
     public MainFrame() throws HeadlessException {
 
-        Container container = getContentPane();
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setMinimumSize(new Dimension(300,300));
+        setSize(700,700);
+
         TreePanel treePanel = new TreePanel();
-        container.add(addScroll(treePanel));
+        ListPanel listPanel = new ListPanel();
+        TabbedPaneGui tabbedPaneGui = new TabbedPaneGui();
+
+        add(addScroll(treePanel),BorderLayout.WEST);
+        add(addScroll(listPanel),BorderLayout.CENTER);
+        add(addScroll(tabbedPaneGui),BorderLayout.EAST);
         setVisible(true);
-        pack();
+        //pack();
     }
 
     //Метод для обертки компонента в Scroll
