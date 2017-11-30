@@ -94,7 +94,7 @@ public class LogicMethodsClass implements LogicMethods {
                 System.out.printf("Файл не найден.", file.getCanonicalPath());
             }
             try {
-                file.setLastModified(newDate.getTime());
+                 file.setLastModified(newDate.getTime());
             }
             catch (Exception ex5) {
                 System.out.println("Невозможно изменить дату последнего изменения файла.");
