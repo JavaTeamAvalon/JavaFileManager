@@ -9,6 +9,7 @@ public class ListPanel extends JPanel{
     private JLabel listName = new JLabel("Список файлов");
 
     public ListPanel() {
+
         listfiles.setLayoutOrientation(JList.VERTICAL);
         add(listName);
         add(listfiles);

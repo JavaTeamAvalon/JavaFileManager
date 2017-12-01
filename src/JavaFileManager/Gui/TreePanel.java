@@ -12,8 +12,11 @@ public class TreePanel extends JPanel{
     FlowLayout flowLayout = new FlowLayout(FlowLayout.LEFT);
 
     public TreePanel() {
-         setLayout(flowLayout);
-         add(tree);
+        // setLayout(flowLayout);
+        //setMinimumSize(new Dimension(200,400));
+         setMaximumSize(new Dimension(400,400));
+         //tree.setPreferredSize(new Dimension(400,400));
+         add(tree,new BorderLayout());
     }
 
 
