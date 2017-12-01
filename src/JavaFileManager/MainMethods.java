@@ -5,17 +5,22 @@ import java.util.ArrayList;
 
 public interface MainMethods {
 
-    void buildingFileStructure ();
+    void copyFilesToArray (File file);
     /*
-     * Построение файловой стурктуры
+     * Копирование файлов и папок в список
      */
 
-    ArrayList<File> copyFilesToArray ();
+    void removeFilesFromArray (File file);
     /*
-     * Копирование файлов в список
+     * Удаление файлов и папок из списка
      */
 
-    ArrayList<File> searchFiles ();
+    void clearArray (File file);
+    /*
+     * Очистка списка
+     */
+
+    void searchFiles (File path, String search);
     /*
      * Поиск файлов
      */
