@@ -5,6 +5,8 @@ import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,6 +17,7 @@ public class ChangeNamePanel extends JPanel {
 JPanel inputPanel = new JPanel(new BorderLayout());
 JPanel radioBoxPanel = new JPanel();
 JPanel comboTextBoxPanel = new JPanel();
+JPanel datepanel = new JPanel();  //Панель с кнопками шаблонов дат
 JRadioButton beginRButton = new JRadioButton("В начало",true);
 JRadioButton endRButton = new JRadioButton("В конец",false);
 JComboBox combo = new JComboBox();
@@ -23,14 +26,16 @@ ButtonGroup groupRadioDate = new ButtonGroup();
 JFormattedTextField text= new JFormattedTextField();   // Текстовое поля для форматированного текста
 
 
+
     public ChangeNamePanel() {
         setLayout(new BorderLayout());
 
         //RadioPanel to North of main Layout
-        /////
 
+        ///////
 
-        /////
+        ///////
+
         radioBoxPanel.setLayout(new BoxLayout(radioBoxPanel,BoxLayout.X_AXIS));
         radioBoxPanel.setBorder(BorderFactory.createLineBorder(Color.black,1));
         radioBoxPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
@@ -47,6 +52,7 @@ JFormattedTextField text= new JFormattedTextField();   // Текстовое п�
         comboTextBoxPanel.add(text);
         combo.addItem("Дополнение");
         combo.addItem("Дата/Время");
+        combo.addActionListener(comboListener);
             inputPanel.add(comboTextBoxPanel,BorderLayout.NORTH);
             inputPanel.setBorder(BorderFactory.createLineBorder(Color.black,1));
             inputPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.RAISED));
@@ -63,11 +69,15 @@ JFormattedTextField text= new JFormattedTextField();   // Текстовое п�
 
     // Панель с радиокнопками
     JPanel dateExamplePanel() {
-        JPanel datepanel = new JPanel();
+
         JRadioButton rDate1 = new JRadioButton("DD/MM/YYYY",true);
         JRadioButton rDate2 = new JRadioButton("YYYY/MM/DD",false);
         JRadioButton rDate3 = new JRadioButton("HH/MM",false);
         JRadioButton rDate4 = new JRadioButton("YYYY/MM/DD + HH/MM",false);
+            rDate1.addActionListener(dateRadioListener);
+            rDate2.addActionListener(dateRadioListener);
+            rDate3.addActionListener(dateRadioListener);
+            rDate4.addActionListener(dateRadioListener);
         groupRadioDate.add(rDate1);
         groupRadioDate.add(rDate2);
         groupRadioDate.add(rDate3);
@@ -77,6 +87,7 @@ JFormattedTextField text= new JFormattedTextField();   // Текстовое п�
         datepanel.add(rDate2);
         datepanel.add(rDate3);
         datepanel.add(rDate4);
+        datepanel.setVisible(false);
         return datepanel;
     }
 
@@ -133,14 +144,84 @@ JFormattedTextField text= new JFormattedTextField();   // Текстовое п�
                break;
                }
        }
-        text.setPreferredSize(new Dimension(150,25));
+       if (text!=null)
+       {comboTextBoxPanel.remove(text);}
+
         text = new JFormattedTextField(dateMask);
-        text.setHorizontalAlignment(JTextField.RIGHT);
+        text.setPreferredSize(new Dimension(150,25));
+
+        text.setHorizontalAlignment(JTextField.LEFT);
+        comboTextBoxPanel.add(text);
+        comboTextBoxPanel.validate();
+
     }
 
+    //Листенер на радио кнопки выбора шаблона даты и изменение текстового поля
+    ActionListener dateRadioListener = new ActionListener()
+    {
+        public void actionPerformed(ActionEvent event)
+        {
+            switch (((JRadioButton)event.getSource()).getText() ) {
+                case "DD/MM/YYYY" :
+                    tamplateMethodEntry("dd/mm/yyyy");
+                    break;
+                case "YYYY/MM/DD" :
+                    tamplateMethodEntry("yyyy/mm/dd");
+                    break;
+                case "HH/MM" :
+                    tamplateMethodEntry("hh/mm");
+                    break;
+                case "YYYY/MM/DD + HH/MM" :
+                    tamplateMethodEntry("yyyy/mm/dd/hh/mm");
+                    break;
+                default:
+                    break;
+            }
+
+        }
+    };
+//Листенер на кнопки Начало и Конец
+    ActionListener beginendRadioListener = new ActionListener()
+    {
+        public void actionPerformed(ActionEvent event)
+        {
+            switch (((JRadioButton)event.getSource()).getText() ) {
+                case "В начало" :
+                    //описание события!!!!
+                    break;
+                case "В конец" :
+                    //описание события!!!!
+                    break;
+
+            }
+
+        }
+    };
+
+// Листенер на комбо бокс
+    ActionListener comboListener = new ActionListener()
+    {
+        public void actionPerformed(ActionEvent event)
+        {
+           switch (combo.getSelectedIndex()) {
+                case 0 : {
+                    datepanel.setVisible(false);
+                    tamplateMethodEntry("null");
+                    break;
+                }
+                case 1 :
+                    datepanel.setVisible(true);
+                    tamplateMethodEntry("dd/mm/yyyy");
+                    break;
+
+            }
+
+        }
+
+    };
 
 
-    }
+}
 
 
 
