@@ -9,14 +9,13 @@ import java.awt.*;
 public class TreePanel extends JPanel{
 
     private JTree tree = new JTree(new FileTreeModel());
-    FlowLayout flowLayout = new FlowLayout(FlowLayout.LEFT);
+    BorderLayout borderLayout = new BorderLayout();
 
     public TreePanel() {
-        // setLayout(flowLayout);
-        //setMinimumSize(new Dimension(200,400));
-         setMaximumSize(new Dimension(400,400));
-         //tree.setPreferredSize(new Dimension(400,400));
-         add(tree,new BorderLayout());
+
+        setLayout(new BorderLayout());
+        setMinimumSize(new Dimension(200,300));
+         add(tree);
     }
 
 

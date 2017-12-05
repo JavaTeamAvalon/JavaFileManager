@@ -7,9 +7,10 @@ class TabbedPanelGui extends JPanel {
 
     JTabbedPane tabbedPane = new JTabbedPane();
     ChangeExtPanel changeExtPanel = new ChangeExtPanel();
+    ChangeNamePanel changeName = new ChangeNamePanel();
 
     public TabbedPanelGui() {
-        tabbedPane.addTab("Изменить имя",new Label());
+        tabbedPane.addTab("Дополнить имя",changeName);
         tabbedPane.addTab("Изменить расширение",changeExtPanel);
         tabbedPane.addTab("Изменить атрибуты",new Button("test3"));
 

@@ -5,55 +5,54 @@ import java.awt.*;
 
 public class MainFrame extends JFrame {
 
-    private GridBagLayout gridbagLayout = new GridBagLayout();
-    private GridBagConstraints gridConstraints = new GridBagConstraints();
-
-    private void MysetConstraints(GridBagConstraints c){
-        c.anchor = GridBagConstraints.WEST;
-        c.fill   = GridBagConstraints.VERTICAL;
-        c.gridheight = 10;
-        c.gridwidth  = 1;
-        c.gridx = 1;
-        c.gridy = 1;
-        c.insets = new Insets(0, 0, 0, 0);
-        c.ipadx = 100;
-        c.ipady =1000;
-        c.weightx = 0.0;
-        c.weighty = 0.1;
-
-    }
-
-    public MainFrame() throws HeadlessException {
-
-JPanel panel = new JPanel();
+     public MainFrame() throws HeadlessException {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         Container container = getContentPane();
         setMinimumSize(new Dimension(300,300));
-        setSize(700,700);
+        setMaximumSize(new Dimension(900,500));
+        setSize(900,500);
 
+        //Init Components
         TreePanel treePanel = new TreePanel();
-        //treePanel.setPreferredSize(new Dimension(300,500));
-        ListPanel listPanel = new ListPanel();
+        ListPanel listPanelMain = new ListPanel("Список файлов");
+        ListPanel listPanelPreview = new ListPanel("Превью файлов");
         TabbedPanelGui tabbedPaneGui = new TabbedPanelGui();
-        JButton btn = new JButton("New Button");
+        JSplitPane split,splitList,splitInSplit;
 
-        setLayout(new BorderLayout());
-        panel.setLayout(new BorderLayout());
 
-        panel.add(addScroll(listPanel,150,700),BorderLayout.WEST);
-        panel.add(addScroll(tabbedPaneGui,300,700),BorderLayout.CENTER);
+        //SplitListPane
+        splitList = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        splitList.setTopComponent(addScroll(listPanelMain,200,300));
+        splitList.setBottomComponent(addScroll(listPanelPreview,200,100));
+        splitList.setContinuousLayout(true);
+        splitList.setOneTouchExpandable(true);
+        splitList.setMinimumSize(new Dimension(100,300));
 
-        container.add(addScroll(treePanel,200,700),BorderLayout.WEST);
-        container.add(panel,BorderLayout.CENTER);
+
+        //SplitInSplit (Панель в панели)
+        splitInSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+        splitInSplit.setLeftComponent(splitList);
+        splitInSplit.setRightComponent(addScroll(tabbedPaneGui,300,700));
+        splitInSplit.setOneTouchExpandable(true);
+
+
+        //Main SplitPane
+        split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+        split.setLeftComponent(addScroll(treePanel,200,700));
+        split.setRightComponent(splitInSplit);
+        split.setOneTouchExpandable(true);
+
+
+        container.add(split);
         setVisible(true);
-        //pack();
+
     }
 
     //Метод для обертки компонента в Scroll
         public JComponent addScroll(JComponent component,int row, int col) {
         JScrollPane Scroll = new JScrollPane(component);
-        //Scroll.setPreferredSize(new Dimension(row,col));
+        Scroll.setPreferredSize(new Dimension(row,col));
         return Scroll;
     }
 

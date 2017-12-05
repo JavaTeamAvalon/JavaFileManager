@@ -6,10 +6,10 @@ import java.util.ArrayList;
 // Панель листа файлов
 public class ListPanel extends JPanel{
     private JList listfiles = new JList();
-    private JLabel listName = new JLabel("Список файлов");
 
-    public ListPanel() {
 
+    public ListPanel(String name) {
+        JLabel listName = new JLabel(name);
         listfiles.setLayoutOrientation(JList.VERTICAL);
         add(listName);
         add(listfiles);
