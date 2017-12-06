@@ -10,6 +10,10 @@ import static java.awt.FlowLayout.RIGHT;
 
 public class ChangeExtPanel extends JPanel{
 
+         JPanel currentExtPanel = new JPanel();
+         JPanel newExtPanel = new JPanel();
+         JTextField curExtField = new JTextField();
+         JTextField newExtField = new JTextField();
     JPanel fieldPanel = new JPanel();
     JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
     JButton newFieldButton = new JButton("Add fields");
@@ -34,30 +38,49 @@ public class ChangeExtPanel extends JPanel{
             }
         });
 
+        //Новое наполнение класса (без кнопок, без гридлэйаута)
+        currentExtPanel.setLayout(new BoxLayout(currentExtPanel,BoxLayout.Y_AXIS));
+        newExtPanel.setLayout(new BoxLayout(newExtPanel,BoxLayout.Y_AXIS));
+        curExtField.setPreferredSize(new Dimension(100,25));
+        newExtField.setPreferredSize(new Dimension(100,25));
+            currentExtPanel.add(new JLabel("Текущее расширение"));
+            currentExtPanel.add(curExtField);
+            newExtPanel.add(new JLabel("Новое расширение"));
+            newExtPanel.add(newExtField);
+
+
+
         //Вспомогательные панели: панель кнопок и панель полей
         buttonPanel.add(newFieldButton);
         buttonPanel.add(delFieldButton);
         fieldPanel.setLayout(new GridLayout(0,2,20,10));
 
         //Основная панель
-        setSize(200,400);
-        setLayout(new BorderLayout());
-        add(buttonPanel,BorderLayout.NORTH);
-        fieldPanel.add(new JLabel("Текущее расширение"));
-        fieldPanel.add(new JLabel("Новое расширение"));
-        arraySetFields();
-        add(fieldPanel,BorderLayout.CENTER);
+//        setSize(200,400);
+//        setLayout(new BorderLayout());
+//        fieldPanel.add(new JLabel("Текущее расширение"));
+//        fieldPanel.add(new JLabel("Новое расширение"));
+            setLayout(new FlowLayout(FlowLayout.LEFT));
+            add(currentExtPanel);
+            add(newExtPanel);
+
+//        arraySetFields();
+//        add(fieldPanel,BorderLayout.CENTER);
   }
+
+
+
+
 
 
     //Метод формирования массива полей, ограниченный 10 штуками
     void arraySetFields ()
     {
-        for(int i=0;i<10;i++) {
+        for(int i=0;i<2;i++) {   //Количество полей. Решил не убирать метод, вдруг нужно будет добавить поля
             currentExt.add(new JTextField());
             newExt.add(new JTextField());
-            currentExt.get(i).setVisible(false);
-            newExt.get(i).setVisible(false);
+            currentExt.get(i).setVisible(true);  //изменить на false если нужно скрывать поля
+            newExt.get(i).setVisible(true);      //изменить на false если нужно скрывать поля
             fieldPanel.add(currentExt.get(i));
             fieldPanel.add(newExt.get(i));
         }

@@ -14,16 +14,16 @@ import java.text.SimpleDateFormat;
 
 public class ChangeNamePanel extends JPanel {
 
-JPanel inputPanel = new JPanel(new BorderLayout());
-JPanel radioBoxPanel = new JPanel();
-JPanel comboTextBoxPanel = new JPanel();
-JPanel datepanel = new JPanel();  //Панель с кнопками шаблонов дат
-JRadioButton beginRButton = new JRadioButton("В начало",true);
-JRadioButton endRButton = new JRadioButton("В конец",false);
-JComboBox combo = new JComboBox();
-ButtonGroup groupRadioBeginEnd = new ButtonGroup();
-ButtonGroup groupRadioDate = new ButtonGroup();
-JFormattedTextField text= new JFormattedTextField();   // Текстовое поля для форматированного текста
+private JPanel inputPanel = new JPanel(new BorderLayout());
+private JPanel radioBoxPanel = new JPanel();
+private JPanel comboTextBoxPanel = new JPanel();
+private JPanel datepanel = new JPanel();  //Панель с кнопками шаблонов дат
+private JRadioButton beginRButton = new JRadioButton("В начало",true);
+private JRadioButton endRButton = new JRadioButton("В конец",false);
+private JComboBox combo = new JComboBox();
+private ButtonGroup groupRadioBeginEnd = new ButtonGroup();
+private ButtonGroup groupRadioDate = new ButtonGroup();
+private JFormattedTextField text= new JFormattedTextField();   // Текстовое поля для форматированного текста
 
 
 
@@ -82,7 +82,7 @@ JFormattedTextField text= new JFormattedTextField();   // Текстовое п�
         groupRadioDate.add(rDate2);
         groupRadioDate.add(rDate3);
         groupRadioDate.add(rDate4);
-        datepanel.setLayout(new BoxLayout(datepanel, BoxLayout.Y_AXIS));
+        datepanel.setLayout(new BoxLayout(datepanel, BoxLayout.X_AXIS));
         datepanel.add(rDate1);
         datepanel.add(rDate2);
         datepanel.add(rDate3);
