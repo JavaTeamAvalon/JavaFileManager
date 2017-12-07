@@ -1,6 +1,9 @@
 package JavaFileManager.Gui;
+import JavaFileManager.TreeModel.TreeTransferHandler;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
 import java.util.ArrayList;
 
 // Панель листа файлов
@@ -9,9 +12,17 @@ public class ListPanel extends JPanel{
 
 
     public ListPanel(String name) {
+        setLayout(new BorderLayout());
         JLabel listName = new JLabel(name);
         listfiles.setLayoutOrientation(JList.VERTICAL);
-        add(listName);
+        add(listName, BorderLayout.NORTH);
+        listfiles.setDropMode(DropMode.INSERT);
+        listfiles.setTransferHandler(new TreeTransferHandler());
+        DefaultListModel listModel = new DefaultListModel();
+        listfiles.setModel(listModel);
+        listModel.addElement("1111");
+        listModel.addElement("2222");
+        listModel.addElement("3333");
         add(listfiles);
     }
 

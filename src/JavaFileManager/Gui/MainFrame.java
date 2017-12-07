@@ -32,6 +32,7 @@ public class MainFrame extends JFrame {
          } catch (Exception ex ) {}
 
          searchTxt.setPreferredSize(new Dimension(275,25));
+         searchTxt.setDragEnabled(true);
          enterBtn.setPreferredSize(new Dimension(25,25));
          enterBtn.setBorderPainted(false);
          refreshBtn.setPreferredSize(new Dimension(25,25));
