@@ -6,7 +6,6 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.TransferHandler;
 
@@ -14,20 +13,22 @@ import javax.swing.TransferHandler;
 //Реализация DnD через JLabel
 
 public class ListPanelV2 {
-    public static void listPanel2() throws Exception {
 
-        final JLabel label = new JLabel("Перетащите файлы в это поле", JLabel.CENTER);
+    JLabel label = new JLabel("Перетащите файлы в это поле", JLabel.CENTER);
+
+    ListPanelV2 () {
+
         label.setTransferHandler(new TransferHandler(null) {
 
             @Override
-            public boolean canImport(TransferSupport support) {
+            public boolean canImport(TransferHandler.TransferSupport support) {
 
                 return support.isDataFlavorSupported(DataFlavor.javaFileListFlavor)
                         || support.isDataFlavorSupported(DataFlavor.stringFlavor);
             }
 
             @Override
-            public boolean importData(TransferSupport support) {
+            public boolean importData(TransferHandler.TransferSupport support) {
 
                 Transferable t = support.getTransferable();
                 try {
@@ -48,9 +49,8 @@ public class ListPanelV2 {
                         Object o = t.getTransferData(DataFlavor.stringFlavor);
                         String str = o.toString();
 
-                        label.setText(
-                                "<html>Слишком много файлов перенесено<br>" + str);
-                    }
+                        label.setText("<html>Слишком много файлов перенесено<br>" + str);
+                        }
 
                 } catch (UnsupportedFlavorException | IOException e) {
                 }
@@ -58,11 +58,5 @@ public class ListPanelV2 {
                 return super.importData(support);
             }
         });
-
-        JFrame f = new JFrame("Drag and Drop");
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setSize(800, 600);
-        f.add(label);
-        f.setVisible(true);
     }
 }
