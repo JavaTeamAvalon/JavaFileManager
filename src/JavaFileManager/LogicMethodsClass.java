@@ -95,6 +95,8 @@ public class LogicMethodsClass implements LogicMethods {
             }
             try {
                  file.setLastModified(newDate.getTime());
+                 file.set
+
             }
             catch (Exception ex5) {
                 System.out.println("Невозможно изменить дату последнего изменения файла.");
