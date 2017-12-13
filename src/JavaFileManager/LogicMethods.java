@@ -28,6 +28,11 @@ public interface LogicMethods {
      * Изменение владельца файла или папки
      */
 
+    void changeLastModifiedDate (ArrayList<File> listFiles, Date newDate) throws IOException;
+    /*
+     * Изменение даты создания файла или папки
+     */
+
     void changeCreateDate (ArrayList<File> listFiles, Date newDate) throws IOException;
     /*
      * Изменение даты создания файла или папки

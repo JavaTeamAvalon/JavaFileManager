@@ -6,6 +6,8 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributeView;
+import java.nio.file.attribute.FileTime;
 import java.nio.file.attribute.UserPrincipal;
 import java.nio.file.attribute.UserPrincipalLookupService;
 import java.text.SimpleDateFormat;
@@ -88,19 +90,24 @@ public class LogicMethodsClass implements LogicMethods {
     }
 
     @Override
+    public void changeLastModifiedDate(ArrayList<File> listFiles, Date newDate) throws IOException {
+        for (File file: listFiles) {
+            if (!file.exists()) {
+                System.out.printf("Файл не найден.", file.getCanonicalPath());
+            }
+            FileTime time = FileTime.fromMillis(newDate.getTime());
+            Files.getFileAttributeView(file.toPath(), BasicFileAttributeView.class).setTimes(time, null, null);
+        }
+    }
+
+    @Override
     public void changeCreateDate(ArrayList<File> listFiles, Date newDate) throws IOException {
         for (File file: listFiles) {
             if (!file.exists()) {
                 System.out.printf("Файл не найден.", file.getCanonicalPath());
             }
-            try {
-                 file.setLastModified(newDate.getTime());
-                 file.set
-
-            }
-            catch (Exception ex5) {
-                System.out.println("Невозможно изменить дату последнего изменения файла.");
-            }
+            FileTime time = FileTime.fromMillis(newDate.getTime());
+            Files.getFileAttributeView(file.toPath(), BasicFileAttributeView.class).setTimes(null, null, time);
         }
     }
 
