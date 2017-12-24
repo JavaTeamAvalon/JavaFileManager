@@ -39,9 +39,10 @@ public class TreeTransferHandler extends TransferHandler {
 
     @Override
     public boolean canImport(TransferSupport supp) {
-        if (!supp.isDataFlavorSupported(DataFlavor.stringFlavor))
-            return false;
-        return true;
+
+        return supp.isDataFlavorSupported(DataFlavor.javaFileListFlavor);
+//                || supp.isDataFlavorSupported(DataFlavor.stringFlavor);
+
     }
 
 

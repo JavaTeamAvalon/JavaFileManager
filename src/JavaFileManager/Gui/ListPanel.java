@@ -20,9 +20,9 @@ public class ListPanel extends JPanel{
         listfiles.setTransferHandler(new TreeTransferHandler());
         DefaultListModel listModel = new DefaultListModel();
         listfiles.setModel(listModel);
-        listModel.addElement("1111");
-        listModel.addElement("2222");
-        listModel.addElement("3333");
+//        listModel.addElement("1111");
+//        listModel.addElement("2222");
+//        listModel.addElement("3333");
         add(listfiles);
     }
 

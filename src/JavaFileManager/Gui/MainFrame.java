@@ -48,8 +48,8 @@ public class MainFrame extends JFrame {
 
         //Init Components
         TreePanel treePanel = new TreePanel();
-        ListPanel listPanelMain = new ListPanel("Список файлов");
-        ListPanel listPanelPreview = new ListPanel("Превью файлов");
+        ListPanelV2 listPanelMain = new ListPanelV2("dgf");
+        ListPanelV2 listPanelPreview = new ListPanelV2("gfgf");
         TabbedPanelGui tabbedPaneGui = new TabbedPanelGui();
         JSplitPane split,splitList,splitInSplit;
 
@@ -72,7 +72,7 @@ public class MainFrame extends JFrame {
         splitInSplit.setLeftComponent(leftPanel);
         splitInSplit.setRightComponent(splitList);//;
         splitInSplit.setOneTouchExpandable(true);
-         splitList.setMinimumSize(new Dimension(100,450));
+        splitList.setMinimumSize(new Dimension(100,450));
 
 
         //Main SplitPane
