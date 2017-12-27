@@ -25,9 +25,9 @@ public class MainFrame extends JFrame {
          JPanel searchPanel = new JPanel();
 
          try {
-             ImageIcon icon1 = new ImageIcon(TreePanel.class.getResource("refresh.png"));
+             ImageIcon icon1 = new ImageIcon(TreePanel.class.getResource("JavaFileManager/Gui/refresh.png"));
              refreshBtn.setIcon(icon1);
-             ImageIcon icon2 = new ImageIcon(TreePanel.class.getResource("Enter.png"));
+             ImageIcon icon2 = new ImageIcon(TreePanel.class.getResource("JavaFileManager/Gui/Enter.png"));
              enterBtn.setIcon(icon2);
          } catch (Exception ex ) {}
 

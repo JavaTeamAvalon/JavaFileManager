@@ -18,6 +18,7 @@ public class ListPanelV2 extends JPanel{
 
         DefaultListModel listModel = new DefaultListModel();
         JList list = new JList();
+        list.setModel(listModel);
         setLayout(new BorderLayout());
         JLabel listName = new JLabel(name);
         list.setLayoutOrientation(JList.VERTICAL);
@@ -45,7 +46,7 @@ public class ListPanelV2 extends JPanel{
                         List<File> files = (List<File>) t.getTransferData(DataFlavor.javaFileListFlavor);
 
                         for (File file: files) {
-                            listModel.addElement(file.toPath());
+                            listModel.addElement(new FileListItem(file));
                         }
 
 
