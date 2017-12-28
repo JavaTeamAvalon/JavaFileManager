@@ -25,9 +25,9 @@ public class MainFrame extends JFrame {
          JPanel searchPanel = new JPanel();
 
          try {
-             ImageIcon icon1 = new ImageIcon(TreePanel.class.getResource("JavaFileManager/Gui/refresh.png"));
+             ImageIcon icon1 = new ImageIcon(TreePanel.class.getResource("/resourses/refresh.png"));
              refreshBtn.setIcon(icon1);
-             ImageIcon icon2 = new ImageIcon(TreePanel.class.getResource("JavaFileManager/Gui/Enter.png"));
+             ImageIcon icon2 = new ImageIcon(TreePanel.class.getResource("/resourses/Enter.png"));
              enterBtn.setIcon(icon2);
          } catch (Exception ex ) {}
 
@@ -48,8 +48,8 @@ public class MainFrame extends JFrame {
 
         //Init Components
         TreePanel treePanel = new TreePanel();
-        ListPanelV2 listPanelMain = new ListPanelV2("dgf");
-        ListPanelV2 listPanelPreview = new ListPanelV2("gfgf");
+        ListPanelV2 listPanelMain = new ListPanelV2("Лист файлов");
+        ListPanelV2 listPanelPreview = new ListPanelV2("Превью");
         TabbedPanelGui tabbedPaneGui = new TabbedPanelGui();
         JSplitPane split,splitList,splitInSplit;
 

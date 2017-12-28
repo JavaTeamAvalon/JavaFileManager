@@ -2,73 +2,59 @@ package JavaFileManager.Gui;
 
 import javax.swing.*;
 import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 public class ListTransferHandler extends TransferHandler {
 
 
-
-//    @Override
-//    public int getSourceActions(JComponent jComponent) {
-//        return COPY;
-//    }
-//
-//    @Override
-//    protected Transferable createTransferable(JComponent jComponent) {
-//        JList l = (JList)jComponent;
-//        return new StringSelection(l.getSelectedValue().toString());
-//    }
-
-//    @Override
-//    protected void exportDone(JComponent jComponent, Transferable transferable, int action) {
-//        if (action == COPY)
-//        {
-//            JList l = (JList)jComponent;
-//            DefaultListModel dlm = (DefaultListModel)l.getModel();
-//
-//        }
-//    }
-
     @Override
-    public boolean canImport(TransferSupport supp) {
+            public boolean canImport(TransferHandler.TransferSupport support) {
 
-        return supp.isDataFlavorSupported(DataFlavor.javaFileListFlavor);
-//                || supp.isDataFlavorSupported(DataFlavor.stringFlavor);
+                return support.isDataFlavorSupported(DataFlavor.javaFileListFlavor);
+            }
 
-    }
+            @Override
+            public boolean importData(TransferHandler.TransferSupport support) {
+                JList list = (JList)support.getComponent();
+                DefaultListModel listModel = (DefaultListModel)list.getModel();
+                Transferable t = support.getTransferable();
+                try {
+
+                    if (t.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
+                        List<File> files = (List<File>) t.getTransferData(DataFlavor.javaFileListFlavor);
+
+                        for (File file: files) {
+                            if (isElement(listModel,file)&&file.isFile())
+                            listModel.addElement(new FileListItem(file));
+                        }
 
 
-    @Override
-    public boolean importData(TransferSupport supp) {
-        if (!supp.isDrop())
-            return  false;
-        JList list = (JList)supp.getComponent();
-       String data;
-       Transferable t = supp.getTransferable();
 
-        try
-        {
-            data = (String)t.getTransferData(DataFlavor.stringFlavor);
+                    } else if (t.isDataFlavorSupported(DataFlavor.stringFlavor)) {
 
-        } catch (Exception e) {
-            return false;
+                        Object o = t.getTransferData(DataFlavor.stringFlavor);
+                        String str = o.toString();
+                      }
+
+                } catch (UnsupportedFlavorException | IOException e) {
+                }
+
+                return super.importData(support);
+            }
+
+
+    private boolean isElement (DefaultListModel listmodel, File file){
+       for (int i = 0; i <listmodel.size() ; i++) {
+
+            if (new File(listmodel.getElementAt(i).toString()).equals(file))
+                return false;
         }
-
-
-        DefaultListModel listModel = (DefaultListModel)list.getModel();
-        JList.DropLocation dl = (JList.DropLocation)supp.getDropLocation();
-        int index = dl.getIndex();
-        listModel.add(index,data);
-        return true;
-
+                return  true;
     }
-
 }
+
+
