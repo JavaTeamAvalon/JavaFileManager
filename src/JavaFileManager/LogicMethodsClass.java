@@ -37,22 +37,35 @@ public class LogicMethodsClass implements LogicMethods {
     }
 
     @Override
-    public void addPrefix(ArrayList<File> listFiles, boolean end, String prefix) throws IOException {
+    public ArrayList addPrefix(ArrayList<File> listFiles, boolean end, String prefix) throws IOException {
+        ArrayList<File> files = new ArrayList<>();
+        File specialFile;
         for (File file: listFiles) {
             if (!file.exists()) {
                 System.out.printf("Файл не найден.", file.getCanonicalPath());
             }
             try {
+
                 if (end == true) {
-                    file.renameTo(new File(file.getAbsolutePath() + prefix));
-                } else file.renameTo(new File(
-                        (file.getAbsolutePath()).substring(0, (file.getAbsolutePath()).lastIndexOf("\\"))
-                                + "." + (prefix + file.getName())));
+                    specialFile = new File((file.getParent()+"\\"+ file.getName().substring(0,file.getName().lastIndexOf("."))+prefix+
+                            file.getName().substring(file.getName().lastIndexOf("."), file.getName().length())));
+                    file.renameTo(specialFile);
+
+
+                } else {
+                    specialFile = new File((file.getParent()+"\\"+ prefix + file.getName()));
+                    file.renameTo(specialFile);
+
+                }
+
+                files.add(specialFile);
+
             }
             catch (Exception ex2) {
                 System.out.println("Невозможно изменить файл.");
             }
         }
+        return files;
     }
 
     @Override

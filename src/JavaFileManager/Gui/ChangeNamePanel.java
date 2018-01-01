@@ -7,9 +7,7 @@ import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 
 public class ChangeNamePanel extends JPanel {
@@ -18,12 +16,12 @@ private JPanel inputPanel = new JPanel(new BorderLayout());
 private JPanel radioBoxPanel = new JPanel();
 private JPanel comboTextBoxPanel = new JPanel();
 private JPanel datepanel = new JPanel();  //Панель с кнопками шаблонов дат
-private JRadioButton beginRButton = new JRadioButton("В начало",true);
-private JRadioButton endRButton = new JRadioButton("В конец",false);
 private JComboBox combo = new JComboBox();
 private ButtonGroup groupRadioBeginEnd = new ButtonGroup();
 private ButtonGroup groupRadioDate = new ButtonGroup();
-private JFormattedTextField text= new JFormattedTextField();   // Текстовое поля для форматированного текста
+JFormattedTextField text= new JFormattedTextField();   // Текстовое поля для форматированного текста
+JRadioButton beginRButton = new JRadioButton("В начало",true);
+JRadioButton endRButton = new JRadioButton("В конец",false);
 
 
 
@@ -67,13 +65,56 @@ private JFormattedTextField text= new JFormattedTextField();   // Текстов
 
     }
 
-    // Панель с радиокнопками
-    JPanel dateExamplePanel() {
+    boolean checkCorrectFields (){
+        boolean flag = false;
+        String[] array = text.getText().split("-");
+        if (text.getText() !=""){
+            if (combo.getSelectedIndex()==1){
+                if (rDate1.isSelected()&&array.length ==3){
+                    if ((Integer.parseInt(array[0])) <32 &&
+                         (Integer.parseInt(array[1])) <13)
+                        flag = true;
 
-        JRadioButton rDate1 = new JRadioButton("DD/MM/YYYY",true);
-        JRadioButton rDate2 = new JRadioButton("YYYY/MM/DD",false);
-        JRadioButton rDate3 = new JRadioButton("HH/MM",false);
-        JRadioButton rDate4 = new JRadioButton("YYYY/MM/DD + HH/MM",false);
+
+                }
+                if (rDate2.isSelected()&&array.length ==3){
+                    if (Integer.parseInt(array[1]) <13 &&
+                        Integer.parseInt(array[2]) <32)
+                        flag = true;
+
+
+                }
+                if (rDate3.isSelected()&&array.length ==2){
+                    if (Integer.parseInt(array[0]) <24 &&
+                        Integer.parseInt(array[1]) <60)
+                        flag = true;
+
+
+                }
+                //Надо дописать                                     ........................................................................
+                if (rDate4.isSelected()&&array.length ==5){
+                    if (Integer.parseInt(array[1]) <13 &&
+                        Integer.parseInt(array[2]) <32)
+
+                        flag = true;
+
+
+                }
+            }
+            else flag = true;
+
+        }
+        return flag;
+    }
+
+    // Панель с радиокнопками
+
+    JRadioButton rDate1 = new JRadioButton("DD/MM/YYYY",true);
+    JRadioButton rDate2 = new JRadioButton("YYYY/MM/DD",false);
+    JRadioButton rDate3 = new JRadioButton("HH/MM",false);
+    JRadioButton rDate4 = new JRadioButton("YYYY/MM/DD + HH/MM",false);
+
+    JPanel dateExamplePanel() {
             rDate1.addActionListener(dateRadioListener);
             rDate2.addActionListener(dateRadioListener);
             rDate3.addActionListener(dateRadioListener);
@@ -101,7 +142,7 @@ private JFormattedTextField text= new JFormattedTextField();   // Текстов
            }
            case "dd/mm/yyyy": {
                try {
-                    dateMask = new MaskFormatter("##/##/####");
+                    dateMask = new MaskFormatter("##-##-####");
                     dateMask.setPlaceholderCharacter('_');
                     dateMask.setValidCharacters("0123456789");
              } catch (ParseException e) {
@@ -112,7 +153,7 @@ private JFormattedTextField text= new JFormattedTextField();   // Текстов
                }
            case "yyyy/mm/dd" : {
                try {
-                   dateMask = new MaskFormatter("####/##/##");
+                   dateMask = new MaskFormatter("####-##-##");
                    dateMask.setPlaceholderCharacter('_');
                    dateMask.setValidCharacters("0123456789");
                } catch (ParseException e) {
@@ -123,7 +164,7 @@ private JFormattedTextField text= new JFormattedTextField();   // Текстов
                }
            case "hh/mm" : {
                try {
-                   dateMask = new MaskFormatter("##/##");
+                   dateMask = new MaskFormatter("##-##");
                    dateMask.setPlaceholderCharacter('_');
                    dateMask.setValidCharacters("0123456789");
                } catch (ParseException e) {
@@ -134,7 +175,7 @@ private JFormattedTextField text= new JFormattedTextField();   // Текстов
                }
            case "yyyy/mm/dd/hh/mm" : {
                try {
-                   dateMask = new MaskFormatter("####/##/##//##:##");
+                   dateMask = new MaskFormatter("####-##-##--##:##");
                    dateMask.setPlaceholderCharacter('_');
                    dateMask.setValidCharacters("0123456789");
                } catch (ParseException e) {

@@ -13,7 +13,7 @@ public interface LogicMethods {
      * Добавление даты в конец илиначало имени по заданному шаблону
      */
 
-    void addPrefix (ArrayList<File> listFiles, boolean end, String prefix) throws IOException;
+    ArrayList addPrefix (ArrayList<File> listFiles, boolean end, String prefix) throws IOException;
     /*
      * Добавление префикса или постфикса по заданному шаблону
      */

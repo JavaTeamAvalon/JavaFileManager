@@ -1,13 +1,8 @@
 package JavaFileManager.Gui;
 
 import java.awt.*;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
-import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.*;
 
 
@@ -15,12 +10,13 @@ import javax.swing.*;
 
 public class ListPanelV2 extends JPanel{
 
-    private JList listfiles = new JList();
+    private JList list = new JList();
+    private DefaultListModel listModel = new DefaultListModel();
 
     ListPanelV2 (String name) {
 
-        DefaultListModel listModel = new DefaultListModel();
-        JList list = new JList();
+//        DefaultListModel listModel = new DefaultListModel();
+//        JList list = new JList();
         list.setModel(listModel);
         setLayout(new BorderLayout());
         JLabel listName = new JLabel(name);
@@ -28,17 +24,40 @@ public class ListPanelV2 extends JPanel{
         add(listName, BorderLayout.NORTH);
         list.setDropMode(DropMode.INSERT);
         list.setTransferHandler(new ListTransferHandler());
+
 //
 //
         add(list);
 
     }
 
+    DefaultListModel getModel(){
+        DefaultListModel model;
+        model = (DefaultListModel) list.getModel();
+        return model;
+    }
+
     //Метод для получения массива строк листа (пути файлов)
-    private ArrayList<String> getList (){
-        ArrayList<String> fileNames=new ArrayList<>();
-        for(int i =0; i<listfiles.getModel().getSize();i++)
-            fileNames.add((String) listfiles.getModel().getElementAt(i));
+     ArrayList<File> getList (){
+        ArrayList<File> fileNames=new ArrayList<>();
+        for(int i =0; i<list.getModel().getSize();i++)
+            fileNames.add(new File(list.getModel().getElementAt(i).toString()));
         return fileNames;
     }
+
+    /*
+    Перестроение JList
+     */
+    void reBuildmodel (ArrayList<File> files){
+        listModel.removeAllElements();
+        System.out.println(listModel.size());
+        for (int i = 0; i <files.size(); i++) {
+           listModel.addElement(files.get(i));
+            System.out.println(listModel.getElementAt(i));
+
+        }
+
+
+    }
+
 }

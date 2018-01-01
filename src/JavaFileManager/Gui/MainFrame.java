@@ -5,6 +5,9 @@ import java.awt.*;
 
 public class MainFrame extends JFrame {
 
+     static ListPanelV2 listPanelMain;
+     static ListPanelV2 listPanelPreview;
+
      public MainFrame() throws HeadlessException {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -48,8 +51,8 @@ public class MainFrame extends JFrame {
 
         //Init Components
         TreePanel treePanel = new TreePanel();
-        ListPanelV2 listPanelMain = new ListPanelV2("Лист файлов");
-        ListPanelV2 listPanelPreview = new ListPanelV2("Превью");
+        listPanelMain = new ListPanelV2("Лист файлов");
+        listPanelPreview = new ListPanelV2("Превью");
         TabbedPanelGui tabbedPaneGui = new TabbedPanelGui();
         JSplitPane split,splitList,splitInSplit;
 
