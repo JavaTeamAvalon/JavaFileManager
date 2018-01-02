@@ -1,15 +1,15 @@
 package JavaFileManager.Gui;
 
-import javafx.scene.control.Tab;
+import JavaFileManager.Listeners.DoChangesListener;
 
 import javax.swing.*;
 import java.awt.*;
 
-class TabbedPanelGui extends JPanel {
+public class TabbedPanelGui extends JPanel {
 
-    static JTabbedPane tabbedPane = new JTabbedPane();
-    private ChangeExtPanel changeExtPanel = new ChangeExtPanel();
-    static ChangeNamePanel changeName = new ChangeNamePanel();
+    public static JTabbedPane tabbedPane = new JTabbedPane();
+    public static ChangeExtPanel changeExtPanel = new ChangeExtPanel();
+    public static ChangeNamePanel changeName = new ChangeNamePanel();
     private JButton changeBtn = new JButton("Do Changes");
 
     public TabbedPanelGui() {

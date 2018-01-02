@@ -6,9 +6,9 @@ import JavaFileManager.TreeModel.TreeTransferHandler;
 import javax.swing.*;
 import java.awt.*;
 
-class TreePanel extends JPanel {
+public class TreePanel extends JPanel {
 
-    JTree tree = new JTree(new FileTreeModel());
+    public static JTree tree = new JTree(new FileTreeModel());
 
     public TreePanel() {
         setLayout(new BorderLayout());

@@ -1,17 +1,21 @@
 package JavaFileManager.Gui;
 
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter;
 
 
 //Реализация DnD через JLabel
 
 public class ListPanelV2 extends JPanel{
 
-    private JList list = new JList();
-    private DefaultListModel listModel = new DefaultListModel();
+    public JList list = new JList();
+    public DefaultListModel listModel = new DefaultListModel();
 
     ListPanelV2 (String name) {
 
@@ -25,8 +29,6 @@ public class ListPanelV2 extends JPanel{
         list.setDropMode(DropMode.INSERT);
         list.setTransferHandler(new ListTransferHandler());
 
-//
-//
         add(list);
 
     }
@@ -37,8 +39,17 @@ public class ListPanelV2 extends JPanel{
         return model;
     }
 
+    public ArrayList<String> getStringList(){
+        JList list = MainFrame.listPanelMain.list;
+        ArrayList <String> files = new ArrayList<>();
+        for (int i = 0; i <list.getModel().getSize() ; i++) {
+            files.add(list.getModel().getElementAt(i).toString());
+        }
+        return files;
+    }
+
     //Метод для получения массива строк листа (пути файлов)
-     ArrayList<File> getList (){
+     public ArrayList<File> getList (){
         ArrayList<File> fileNames=new ArrayList<>();
         for(int i =0; i<list.getModel().getSize();i++)
             fileNames.add(new File(list.getModel().getElementAt(i).toString()));
@@ -48,7 +59,7 @@ public class ListPanelV2 extends JPanel{
     /*
     Перестроение JList
      */
-    void reBuildmodel (ArrayList<File> files){
+    public void reBuildmodelFile(ArrayList<File> files){
         listModel.removeAllElements();
         System.out.println(listModel.size());
         for (int i = 0; i <files.size(); i++) {
@@ -57,7 +68,20 @@ public class ListPanelV2 extends JPanel{
 
         }
 
+    }
+
+
+    public void reBuildmodelString (ArrayList<String> files){
+        listModel.removeAllElements();
+        System.out.println(listModel.size());
+        for (int i = 0; i <files.size(); i++) {
+            listModel.addElement(files.get(i));
+            System.out.println(listModel.getElementAt(i));
+
+        }
+
 
     }
+
 
 }

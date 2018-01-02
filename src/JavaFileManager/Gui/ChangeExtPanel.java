@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 
 import static java.awt.FlowLayout.RIGHT;
@@ -12,8 +13,8 @@ public class ChangeExtPanel extends JPanel{
 
          JPanel currentExtPanel = new JPanel();
          JPanel newExtPanel = new JPanel();
-         JTextField curExtField = new JTextField();
-         JTextField newExtField = new JTextField();
+        public static JTextField curExtField = new JTextField();
+        public static JTextField newExtField = new JTextField();
     JPanel fieldPanel = new JPanel();
     JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
     JButton newFieldButton = new JButton("Add fields");
@@ -56,21 +57,25 @@ public class ChangeExtPanel extends JPanel{
         fieldPanel.setLayout(new GridLayout(0,2,20,10));
 
         //Основная панель
-//        setSize(200,400);
-//        setLayout(new BorderLayout());
-//        fieldPanel.add(new JLabel("Текущее расширение"));
-//        fieldPanel.add(new JLabel("Новое расширение"));
+
             setLayout(new FlowLayout(FlowLayout.LEFT));
             add(currentExtPanel);
             add(newExtPanel);
 
-//        arraySetFields();
-//        add(fieldPanel,BorderLayout.CENTER);
   }
 
 
 
+    public boolean isExpansionTrue (File file, String oldExp){
+        String Exp = file.getName().substring(file.getName().lastIndexOf(".")+1,file.getName().length());
+        if (Exp.equals(oldExp)) {
+            return true;
+        }
+        else {
+            return false;
+        }
 
+}
 
 
     //Метод формирования массива полей, ограниченный 10 штуками

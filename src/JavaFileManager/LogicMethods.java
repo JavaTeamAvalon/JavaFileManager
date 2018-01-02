@@ -18,7 +18,7 @@ public interface LogicMethods {
      * Добавление префикса или постфикса по заданному шаблону
      */
 
-    void changeExpansion (ArrayList<File> listFiles, String newExt) throws IOException;
+    ArrayList changeExpansion (ArrayList<File> listFiles, String newExt) throws IOException;
     /*
      * Изменение расширения файла
      */
@@ -34,6 +34,8 @@ public interface LogicMethods {
      */
 
     void changeCreateDate (ArrayList<File> listFiles, Date newDate) throws IOException;
+
+    ArrayList addPreviewPrefix(ArrayList<String> listFiles, boolean end, String prefix) throws IOException;
     /*
      * Изменение даты создания файла или папки
      */

@@ -1,6 +1,8 @@
 package JavaFileManager.Gui;
 
 
+import JavaFileManager.Listeners.ChengesToPreview;
+
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.text.MaskFormatter;
@@ -19,20 +21,17 @@ private JPanel datepanel = new JPanel();  //Панель с кнопками ш�
 private JComboBox combo = new JComboBox();
 private ButtonGroup groupRadioBeginEnd = new ButtonGroup();
 private ButtonGroup groupRadioDate = new ButtonGroup();
-JFormattedTextField text= new JFormattedTextField();   // Текстовое поля для форматированного текста
+public JFormattedTextField text= new JFormattedTextField();   // Текстовое поля для форматированного текста
 JRadioButton beginRButton = new JRadioButton("В начало",true);
-JRadioButton endRButton = new JRadioButton("В конец",false);
+public JRadioButton endRButton = new JRadioButton("В конец",false);
 
 
 
     public ChangeNamePanel() {
         setLayout(new BorderLayout());
 
-        //RadioPanel to North of main Layout
 
-        ///////
 
-        ///////
 
         radioBoxPanel.setLayout(new BoxLayout(radioBoxPanel,BoxLayout.X_AXIS));
         radioBoxPanel.setBorder(BorderFactory.createLineBorder(Color.black,1));
@@ -48,8 +47,9 @@ JRadioButton endRButton = new JRadioButton("В конец",false);
         comboTextBoxPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         comboTextBoxPanel.add(combo);
         comboTextBoxPanel.add(text);
-        combo.addItem("Дополнение");
-        combo.addItem("Дата/Время");
+        text.setText("Привет");
+        combo.addItem("Prefix | Suffix");
+        combo.addItem("Date | Time");
         combo.addActionListener(comboListener);
             inputPanel.add(comboTextBoxPanel,BorderLayout.NORTH);
             inputPanel.setBorder(BorderFactory.createLineBorder(Color.black,1));
@@ -62,44 +62,40 @@ JRadioButton endRButton = new JRadioButton("В конец",false);
         add(inputPanel);
 
         tamplateMethodEntry("dd/mm/yyy");
-
+        text.getDocument().addDocumentListener(new ChengesToPreview());
     }
 
-    boolean checkCorrectFields (){
+    public boolean checkCorrectFields (){
         boolean flag = false;
         String[] array = text.getText().split("-");
         if (text.getText() !=""){
             if (combo.getSelectedIndex()==1){
-                if (rDate1.isSelected()&&array.length ==3){
+                if (rDate1.isSelected())
+                try{
                     if ((Integer.parseInt(array[0])) <32 &&
                          (Integer.parseInt(array[1])) <13)
                         flag = true;
+                }catch (NumberFormatException e){flag = false;}
+
+                if (rDate2.isSelected()){
+                    try {
+                        if (Integer.parseInt(array[1]) < 13 &&
+                                Integer.parseInt(array[2]) < 32)
+                            flag = true;
+                    }catch (NumberFormatException e){flag = false;}
+
+                }
+                if (rDate3.isSelected()){
+                    try {
+                        if (Integer.parseInt(array[0]) <24 &&
+                                Integer.parseInt(array[1]) <60)
+                            flag = true;
+                    }catch (NumberFormatException e){flag = false;}
+
 
 
                 }
-                if (rDate2.isSelected()&&array.length ==3){
-                    if (Integer.parseInt(array[1]) <13 &&
-                        Integer.parseInt(array[2]) <32)
-                        flag = true;
 
-
-                }
-                if (rDate3.isSelected()&&array.length ==2){
-                    if (Integer.parseInt(array[0]) <24 &&
-                        Integer.parseInt(array[1]) <60)
-                        flag = true;
-
-
-                }
-                //Надо дописать                                     ........................................................................
-                if (rDate4.isSelected()&&array.length ==5){
-                    if (Integer.parseInt(array[1]) <13 &&
-                        Integer.parseInt(array[2]) <32)
-
-                        flag = true;
-
-
-                }
             }
             else flag = true;
 
@@ -122,12 +118,12 @@ JRadioButton endRButton = new JRadioButton("В конец",false);
         groupRadioDate.add(rDate1);
         groupRadioDate.add(rDate2);
         groupRadioDate.add(rDate3);
-        groupRadioDate.add(rDate4);
+        //groupRadioDate.add(rDate4);
         datepanel.setLayout(new BoxLayout(datepanel, BoxLayout.X_AXIS));
         datepanel.add(rDate1);
         datepanel.add(rDate2);
         datepanel.add(rDate3);
-        datepanel.add(rDate4);
+       // datepanel.add(rDate4);
         datepanel.setVisible(false);
         return datepanel;
     }
@@ -193,6 +189,7 @@ JRadioButton endRButton = new JRadioButton("В конец",false);
 
         text.setHorizontalAlignment(JTextField.LEFT);
         comboTextBoxPanel.add(text);
+        text.getDocument().addDocumentListener(new ChengesToPreview());
         comboTextBoxPanel.validate();
 
     }

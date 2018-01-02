@@ -13,6 +13,7 @@ import java.nio.file.attribute.UserPrincipalLookupService;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 
 
 public class LogicMethodsClass implements LogicMethods {
@@ -69,19 +70,26 @@ public class LogicMethodsClass implements LogicMethods {
     }
 
     @Override
-    public void changeExpansion(ArrayList<File> listFiles, String newExt) throws IOException {
+    public ArrayList changeExpansion(ArrayList<File> listFiles, String newExt) throws IOException {
+        ArrayList<File> files = new ArrayList<>();
+        File specialFile;
         for (File file: listFiles) {
             if (!file.exists()||file.isDirectory()) {
                 System.out.printf("Файл не найден, либо указана папка, а не файл.", file.getCanonicalPath());
             }
             try {
                 String nameWithoutExt = (file.getAbsolutePath()).substring(0,(file.getAbsolutePath()).lastIndexOf("."));
-                file.renameTo(new File(nameWithoutExt + "." + newExt));
+                specialFile = new File(nameWithoutExt + "." + newExt);
+                file.renameTo(specialFile);
+                files.add(specialFile);
+                System.out.println(specialFile);
             }
             catch (Exception ex3) {
                 System.out.println("Невозможно изменить расширение.");
             }
         }
+
+        return files;
     }
 
     @Override
@@ -122,6 +130,36 @@ public class LogicMethodsClass implements LogicMethods {
             FileTime time = FileTime.fromMillis(newDate.getTime());
             Files.getFileAttributeView(file.toPath(), BasicFileAttributeView.class).setTimes(null, null, time);
         }
+    }
+
+    @Override
+    public ArrayList addPreviewPrefix(ArrayList<String> listFiles, boolean end, String prefix) throws IOException {
+        ArrayList<String> files = new ArrayList<>();
+
+
+        String specialFile;
+        for (String file: listFiles) {
+
+            try {
+
+                if (end == true) {
+                    specialFile = file.substring(0,file.lastIndexOf("."))+prefix+"."+file.substring(file.lastIndexOf("."),file.length());
+
+
+                } else {
+                    specialFile = prefix+file;
+
+                }
+
+                files.add(specialFile);
+
+            }
+            catch (Exception ex2) {
+                System.out.println("Невозможно изменить файл.");
+            }
+        }
+
+        return files;
     }
 
 }

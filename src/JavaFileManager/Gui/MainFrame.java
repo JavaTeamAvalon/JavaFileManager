@@ -1,12 +1,16 @@
 package JavaFileManager.Gui;
 
+import JavaFileManager.Listeners.DelListener;
+import JavaFileManager.Listeners.MainPanelToPreviewListener;
+import JavaFileManager.Listeners.RefreshListener;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class MainFrame extends JFrame {
 
-     static ListPanelV2 listPanelMain;
-     static ListPanelV2 listPanelPreview;
+     public static ListPanelV2 listPanelMain;
+     public static ListPanelV2 listPanelPreview;
 
      public MainFrame() throws HeadlessException {
 
@@ -34,6 +38,8 @@ public class MainFrame extends JFrame {
              enterBtn.setIcon(icon2);
          } catch (Exception ex ) {}
 
+         refreshBtn.addActionListener(new RefreshListener());
+
          searchTxt.setPreferredSize(new Dimension(275,25));
          searchTxt.setDragEnabled(true);
          enterBtn.setPreferredSize(new Dimension(25,25));
@@ -52,7 +58,10 @@ public class MainFrame extends JFrame {
         //Init Components
         TreePanel treePanel = new TreePanel();
         listPanelMain = new ListPanelV2("Лист файлов");
+        listPanelMain.listModel.addListDataListener(new MainPanelToPreviewListener());
+        listPanelMain.list.addKeyListener(new DelListener(listPanelMain.listModel,listPanelMain.list));
         listPanelPreview = new ListPanelV2("Превью");
+
         TabbedPanelGui tabbedPaneGui = new TabbedPanelGui();
         JSplitPane split,splitList,splitInSplit;
 
