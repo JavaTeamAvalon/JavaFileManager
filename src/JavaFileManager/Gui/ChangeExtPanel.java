@@ -1,6 +1,7 @@
 package JavaFileManager.Gui;
 
 import JavaFileManager.Listeners.ChengesToPreview;
+import JavaFileManager.Listeners.EnterBtnListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -54,6 +55,8 @@ public class ChangeExtPanel extends JPanel{
 
             newExtField.getDocument().addDocumentListener(new ChengesToPreview());
             curExtField.getDocument().addDocumentListener(new ChengesToPreview());
+            newExtField.addKeyListener(new EnterBtnListener());
+            curExtField.addKeyListener(new EnterBtnListener());
 
 
 

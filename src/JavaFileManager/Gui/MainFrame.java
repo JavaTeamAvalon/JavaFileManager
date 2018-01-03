@@ -1,8 +1,6 @@
 package JavaFileManager.Gui;
 
-import JavaFileManager.Listeners.DelListener;
-import JavaFileManager.Listeners.MainPanelToPreviewListener;
-import JavaFileManager.Listeners.RefreshListener;
+import JavaFileManager.Listeners.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -61,6 +59,7 @@ public class MainFrame extends JFrame {
         listPanelMain.listModel.addListDataListener(new MainPanelToPreviewListener());
         listPanelMain.list.addKeyListener(new DelListener(listPanelMain.listModel,listPanelMain.list));
         listPanelPreview = new ListPanelV2("Превью");
+        listPanelPreview.list.setCellRenderer(new ColorListRender());
 
         TabbedPanelGui tabbedPaneGui = new TabbedPanelGui();
         JSplitPane split,splitList,splitInSplit;

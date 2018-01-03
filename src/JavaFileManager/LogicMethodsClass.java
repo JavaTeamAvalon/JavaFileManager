@@ -1,5 +1,6 @@
 package JavaFileManager;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
@@ -144,7 +145,8 @@ public class LogicMethodsClass implements LogicMethods {
 
                 if (end == true) {
                     specialFile = file.substring(0,file.lastIndexOf("."))+prefix+"."+file.substring(file.lastIndexOf("."),file.length());
-
+                    labelarr.add(new JLabel("<html>Text color:"+file.substring(0,file.lastIndexOf("."))+"."+
+                            "<font color='red'>"+file.substring(file.lastIndexOf("."),file.length())+"</font></html>"));
 
                 } else {
                     specialFile = prefix+file;
@@ -181,6 +183,17 @@ public class LogicMethodsClass implements LogicMethods {
         }
 
         return files;
+    }
+
+    ArrayList<JLabel> labelarr= new ArrayList<>();
+    //Метод для возврата массива Label, для передачи в класс ColorListRender
+    public ArrayList getLabels(){
+        ArrayList<JLabel> labelarr1= new ArrayList<>();
+        labelarr1 = null;
+        if (labelarr!=null)
+            return labelarr1=labelarr;
+        else return labelarr1;
+
     }
 
 }

@@ -2,6 +2,7 @@ package JavaFileManager.Gui;
 
 
 import JavaFileManager.Listeners.ChengesToPreview;
+import JavaFileManager.Listeners.EnterBtnListener;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -18,7 +19,7 @@ private JPanel inputPanel = new JPanel(new BorderLayout());
 private JPanel radioBoxPanel = new JPanel();
 private JPanel comboTextBoxPanel = new JPanel();
 private JPanel datepanel = new JPanel();  //Панель с кнопками шаблонов дат
-private JComboBox combo = new JComboBox();
+public JComboBox combo = new JComboBox();
 private ButtonGroup groupRadioBeginEnd = new ButtonGroup();
 private ButtonGroup groupRadioDate = new ButtonGroup();
 public JFormattedTextField text= new JFormattedTextField();   // Текстовое поля для форматированного текста
@@ -46,6 +47,7 @@ public JRadioButton endRButton = new JRadioButton("В конец",false);
         combo.setPreferredSize(new Dimension(120,25));
         comboTextBoxPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         comboTextBoxPanel.add(combo);
+
         comboTextBoxPanel.add(text);
         text.setText("Привет");
         combo.addItem("Prefix | Suffix");
@@ -63,6 +65,7 @@ public JRadioButton endRButton = new JRadioButton("В конец",false);
 
         tamplateMethodEntry("dd/mm/yyy");
         text.getDocument().addDocumentListener(new ChengesToPreview());
+        text.addKeyListener(new EnterBtnListener());
     }
 
     public boolean checkCorrectFields (){

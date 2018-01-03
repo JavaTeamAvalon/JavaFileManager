@@ -3,6 +3,7 @@ package JavaFileManager.Listeners;
 import JavaFileManager.Gui.*;
 import JavaFileManager.LogicMethodsClass;
 
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.event.ActionEvent;
@@ -14,8 +15,10 @@ import java.util.HashSet;
 import java.util.LinkedList;
 
 public class ChengesToPreview implements DocumentListener {
+    public static boolean wasChanged = false; //Переменная для отработки ColorListRender
     ArrayList<String> files = new ArrayList<>();
     ArrayList<File> mainFiles = new ArrayList<>();
+
 
     @Override
     public void insertUpdate(DocumentEvent documentEvent) {
@@ -33,6 +36,8 @@ public class ChengesToPreview implements DocumentListener {
     }
 
 
+
+
     public void actionPerformed() {
         System.out.println("Came to changing Listener");
         MainPanelToPreviewListener listener = new MainPanelToPreviewListener();
@@ -46,17 +51,27 @@ public class ChengesToPreview implements DocumentListener {
         switch (TabbedPanelGui.tabbedPane.getSelectedIndex()) {
             case 0: {
                 String prefix;
+                String[] prefixmas;
                 boolean end = false;
 
                 prefix = TabbedPanelGui.changeName.text.getText();
+                if (TabbedPanelGui.changeName.combo.getSelectedIndex()==1){
+                    prefixmas = prefix.split("-");
+                    prefix = "";
+                    for(String str:prefixmas)
+                        prefix =prefix+str;
+                }
+
                 end = TabbedPanelGui.changeName.endRButton.isSelected();
                 mainFiles = MainFrame.listPanelMain.getList();
                 files = convertToString(mainFiles);
                 try {
                     files = doSomething.addPreviewPrefix(files, end, prefix);
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
                 MainFrame.listPanelPreview.reBuildmodelString(files);
 
                 break;
