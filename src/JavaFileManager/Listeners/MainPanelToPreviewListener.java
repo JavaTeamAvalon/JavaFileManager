@@ -36,7 +36,7 @@ public class MainPanelToPreviewListener implements ListDataListener {
         prewiewList();
     }
 
-    private void prewiewList (){
+     void prewiewList (){
         if (!MainFrame.listPanelMain.getList().isEmpty()){
             MainFrame.listPanelPreview.listModel.removeAllElements();
             files  = MainFrame.listPanelMain.getList();

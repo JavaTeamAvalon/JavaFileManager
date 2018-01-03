@@ -47,55 +47,54 @@ public class ChengesToPreview implements DocumentListener {
             case 0: {
                 String prefix;
                 boolean end = false;
-                //if (TabbedPanelGui.changeName.checkCorrectFields() == true) {
-                    prefix= TabbedPanelGui.changeName.text.getText();
 
-                    end = TabbedPanelGui.changeName.endRButton.isSelected();
-//                    files = MainFrame.listPanelPreview.getStringList();
-                    mainFiles = MainFrame.listPanelMain.getList();
-                    files = convertToString(mainFiles);
-                    try {
-                        files = doSomething.addPreviewPrefix(files, end, prefix);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    MainFrame.listPanelPreview.reBuildmodelString(files);
-
-//                }
-//                else new WarningFrame();
+                prefix = TabbedPanelGui.changeName.text.getText();
+                end = TabbedPanelGui.changeName.endRButton.isSelected();
+                mainFiles = MainFrame.listPanelMain.getList();
+                files = convertToString(mainFiles);
+                try {
+                    files = doSomething.addPreviewPrefix(files, end, prefix);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                MainFrame.listPanelPreview.reBuildmodelString(files);
 
                 break;
             }
-//            case 1:{
-//                System.out.println("TabbedPane = "+1);
-//                ArrayList<File> currentfiles = new ArrayList<>();
-//                ArrayList<File> changedfiles = new ArrayList<>();
-//                ArrayList<File> allfiles = new ArrayList<>();
-//                String currentExp = ChangeExtPanel.curExtField.getText();
-//                String newExp = ChangeExtPanel.newExtField.getText();
-//                String str = "";
-//
-//                if (!currentExp.equals(str) && !newExp.equals(str)) {
-//                    for (File file : MainFrame.listPanelMain.getList()) {
-//                        if (TabbedPanelGui.changeExtPanel.isExpansionTrue(file, currentExp))
-//                            currentfiles.add(file);
-//                        else allfiles.add(file);
-//                    }
-//                    try {
-//                        changedfiles = doSomething.changeExpansion(currentfiles, newExp);
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                    allfiles.addAll(changedfiles);
-//                    MainFrame.listPanelMain.reBuildmodelFile(allfiles);
-//                    TreePanel.tree.updateUI();
-//
-//                }
-//                else new WarningFrame();
-//
-//                break;
+            case 1: {
+                System.out.println("TabbedPane = " + 1+"Expansion try no change");
+                mainFiles = MainFrame.listPanelMain.getList();
+                files = convertToString(mainFiles);
+                String str = "";
+                String currentExp = ChangeExtPanel.curExtField.getText();
+                String newExp = ChangeExtPanel.newExtField.getText();
+
+                ArrayList<File> currentfiles = new ArrayList<>();
+                ArrayList<String> changedfiles = new ArrayList<>();
+                ArrayList<String> allfiles = new ArrayList<>();
+
+                if (!currentExp.equals(str) && !newExp.equals(str)) {
+                    for (File file : MainFrame.listPanelMain.getList()) {
+                        if (TabbedPanelGui.changeExtPanel.isExpansionTrue(file, currentExp))
+                            currentfiles.add(file);
+                        else allfiles.add(file.getName());
+                    }
+                    try {
+                        changedfiles = doSomething.changePreviewExpansion(currentfiles, newExp);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    allfiles.addAll(changedfiles);
+                    MainFrame.listPanelPreview.reBuildmodelString(allfiles);
+
+
+                }else
+                    listener.prewiewList();
+
+                break;
             }
         }
+    }
 
         private ArrayList convertToString (ArrayList<File> arrlist){
         ArrayList<String> arr = new ArrayList<>();

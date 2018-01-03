@@ -36,6 +36,8 @@ public interface LogicMethods {
     void changeCreateDate (ArrayList<File> listFiles, Date newDate) throws IOException;
 
     ArrayList addPreviewPrefix(ArrayList<String> listFiles, boolean end, String prefix) throws IOException;
+
+    ArrayList changePreviewExpansion(ArrayList<File> listFiles, String newExt) throws IOException;
     /*
      * Изменение даты создания файла или папки
      */

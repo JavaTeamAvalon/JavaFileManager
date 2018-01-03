@@ -18,6 +18,8 @@ public class DelListener extends KeyAdapter {
             for (int i = 0; i <listModel.size(); i++) {
                 while (!list.isSelectionEmpty())
                     listModel.remove(list.getSelectedIndex());
+                ChengesToPreview change = new ChengesToPreview();
+                change.actionPerformed();
             }
     }
 }

@@ -162,4 +162,25 @@ public class LogicMethodsClass implements LogicMethods {
         return files;
     }
 
+    @Override
+    public ArrayList changePreviewExpansion(ArrayList<File> listFiles, String newExt) throws IOException {
+        ArrayList<String> files = new ArrayList<>();
+//        File specialFile;
+        for (File file: listFiles) {
+
+            try {
+                String nameNewExt = (file.getName()).substring(0,(file.getName()).lastIndexOf("."))+"."+newExt;
+                //specialFile = new File(nameWithoutExt + "." + newExt);
+                //file.renameTo(specialFile);
+                files.add(nameNewExt);
+                System.out.println(nameNewExt);
+            }
+            catch (Exception ex3) {
+                System.out.println("Невозможно изменить расширение.");
+            }
+        }
+
+        return files;
+    }
+
 }

@@ -1,5 +1,7 @@
 package JavaFileManager.Gui;
 
+import JavaFileManager.Listeners.ChengesToPreview;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,6 +17,7 @@ public class ChangeExtPanel extends JPanel{
          JPanel newExtPanel = new JPanel();
         public static JTextField curExtField = new JTextField();
         public static JTextField newExtField = new JTextField();
+
     JPanel fieldPanel = new JPanel();
     JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
     JButton newFieldButton = new JButton("Add fields");
@@ -48,6 +51,9 @@ public class ChangeExtPanel extends JPanel{
             currentExtPanel.add(curExtField);
             newExtPanel.add(new JLabel("Новое расширение"));
             newExtPanel.add(newExtField);
+
+            newExtField.getDocument().addDocumentListener(new ChengesToPreview());
+            curExtField.getDocument().addDocumentListener(new ChengesToPreview());
 
 
 
