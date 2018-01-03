@@ -7,7 +7,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class DoChangesListener implements ActionListener {
 
@@ -69,6 +74,36 @@ public class DoChangesListener implements ActionListener {
                 else new WarningFrame();
 
                 break;
+            }
+            case 2:{
+                String modifiedDate,owner,createDate;
+
+                ArrayList<File> currentfiles = new ArrayList<>();
+                if (!MainFrame.listPanelMain.getList().isEmpty())
+                currentfiles=MainFrame.listPanelMain.getList();
+
+                createDate = TabbedPanelGui.attributesPanel.createDateTxt.getText();
+                modifiedDate = TabbedPanelGui.attributesPanel.modifiedDateTxt.getText();
+                owner = TabbedPanelGui.attributesPanel.ownerTxt.getText();
+                if(!AttributesPanel.checkCorrectFields(createDate)||!AttributesPanel.checkCorrectFields(modifiedDate)){
+                    new WarningFrame();
+                    TabbedPanelGui.attributesPanel.createDateTxt.setText("");
+                    TabbedPanelGui.attributesPanel.modifiedDateTxt.setText("");
+                    return;
+                }
+
+
+                try {
+                    doSomething.changeCreateDate(currentfiles,createDate);
+                    TabbedPanelGui.attributesPanel.createDateTxt.setText("");
+                    doSomething.changeLastModifiedDate(currentfiles,modifiedDate);
+                    TabbedPanelGui.attributesPanel.modifiedDateTxt.setText("");
+//                    if (!owner.equals(""))
+//                        doSomething.changeOwner(currentfiles,owner);
+
+
+                } catch (ParseException ignore) {}
+                catch (IOException ignore) {}
             }
         }
     }

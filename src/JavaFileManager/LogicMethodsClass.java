@@ -1,5 +1,9 @@
 package JavaFileManager;
 
+import JavaFileManager.Gui.AttributesPanel;
+import JavaFileManager.Gui.TabbedPanelGui;
+import JavaFileManager.Gui.WarningFrame;
+
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +15,8 @@ import java.nio.file.attribute.BasicFileAttributeView;
 import java.nio.file.attribute.FileTime;
 import java.nio.file.attribute.UserPrincipal;
 import java.nio.file.attribute.UserPrincipalLookupService;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -112,24 +118,38 @@ public class LogicMethodsClass implements LogicMethods {
     }
 
     @Override
-    public void changeLastModifiedDate(ArrayList<File> listFiles, Date newDate) throws IOException {
+    public void changeLastModifiedDate(ArrayList<File> listFiles, String newDate) throws IOException,ParseException {
+        DateFormat format = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
+        Date localDate = format.parse(newDate);
+
         for (File file: listFiles) {
             if (!file.exists()) {
                 System.out.printf("Файл не найден.", file.getCanonicalPath());
             }
-            FileTime time = FileTime.fromMillis(newDate.getTime());
-            Files.getFileAttributeView(file.toPath(), BasicFileAttributeView.class).setTimes(time, null, null);
+            FileTime time = FileTime.fromMillis(localDate.getTime());
+            BasicFileAttributeView attributes = Files.getFileAttributeView(file.toPath(), BasicFileAttributeView.class);
+            attributes.setTimes(time, time,null); //Если изменен, то меняется и дата последнего открытия
         }
     }
 
+
+
     @Override
-    public void changeCreateDate(ArrayList<File> listFiles, Date newDate) throws IOException {
+    public void changeCreateDate(ArrayList<File> listFiles, String newDate) throws IOException, ParseException {
+        DateFormat format = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
+        Date localDate = format.parse(newDate);
+
+
         for (File file: listFiles) {
             if (!file.exists()) {
-                System.out.printf("Файл не найден.", file.getCanonicalPath());
+               new WarningFrame("One of files is failed");
+
+               return;
             }
-            FileTime time = FileTime.fromMillis(newDate.getTime());
-            Files.getFileAttributeView(file.toPath(), BasicFileAttributeView.class).setTimes(null, null, time);
+            FileTime time = FileTime.fromMillis(localDate.getTime());
+            BasicFileAttributeView attributes = Files.getFileAttributeView(file.toPath(), BasicFileAttributeView.class);
+            attributes.setTimes(null, null, time);
+
         }
     }
 

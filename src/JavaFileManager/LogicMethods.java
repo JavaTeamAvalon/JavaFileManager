@@ -2,6 +2,7 @@ package JavaFileManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,12 +29,12 @@ public interface LogicMethods {
      * Изменение владельца файла или папки
      */
 
-    void changeLastModifiedDate (ArrayList<File> listFiles, Date newDate) throws IOException;
+    void changeLastModifiedDate (ArrayList<File> listFiles, String newDate) throws IOException, ParseException;
     /*
      * Изменение даты создания файла или папки
      */
 
-    void changeCreateDate (ArrayList<File> listFiles, Date newDate) throws IOException;
+    void changeCreateDate(ArrayList<File> listFiles, String newDate) throws IOException, ParseException;
 
     ArrayList addPreviewPrefix(ArrayList<String> listFiles, boolean end, String prefix) throws IOException;
 
