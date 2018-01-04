@@ -71,7 +71,20 @@ public class DoChangesListener implements ActionListener {
                     TreePanel.tree.updateUI();
 
                 }
-                else new WarningFrame();
+
+                else if (currentExp.equals(str) && !newExp.equals(str)) {
+                    for (File file : MainFrame.listPanelMain.getList()) {
+                        allfiles.add(file);
+                    }
+                    try {
+                        allfiles = doSomething.changeExpansion(allfiles, newExp);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    MainFrame.listPanelMain.reBuildmodelFile(allfiles);
+                    TreePanel.tree.updateUI();
+
+                }else new WarningFrame();
 
                 break;
             }

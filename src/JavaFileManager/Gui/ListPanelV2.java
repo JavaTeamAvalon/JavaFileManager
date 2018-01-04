@@ -64,8 +64,6 @@ public class ListPanelV2 extends JPanel{
         System.out.println(listModel.size());
         for (int i = 0; i <files.size(); i++) {
            listModel.addElement(files.get(i));
-            System.out.println(listModel.getElementAt(i));
-
         }
 
     }

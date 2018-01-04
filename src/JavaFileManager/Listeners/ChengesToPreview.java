@@ -104,7 +104,20 @@ public class ChengesToPreview implements DocumentListener {
 
 
                 }else
-                    listener.prewiewList();
+                    //////
+                    if (currentExp.equals(str) && !newExp.equals(str)) {
+                        for (File file : MainFrame.listPanelMain.getList()) {
+                            currentfiles.add(file);
+                        }
+                        try {
+                            changedfiles = doSomething.changePreviewExpansion(currentfiles, newExp);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        allfiles.addAll(changedfiles);
+                        MainFrame.listPanelPreview.reBuildmodelString(allfiles);
+                    }
+                    else   listener.prewiewList();
 
                 break;
             }
