@@ -270,6 +270,7 @@ private JButton currentDateBtn = new JButton("Current Date");
                     datepanel.setVisible(true);
                     currentDateBtn.setVisible(true);
                     tamplateMethodEntry("dd/mm/yyyy");
+                    CurrentDateListener.dateTemplate = 0;
                     break;
 
             }

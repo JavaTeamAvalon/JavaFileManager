@@ -1,6 +1,8 @@
 package JavaFileManager.Gui;
 
 import JavaFileManager.Listeners.*;
+import JavaFileManager.Others.EditListAction;
+import JavaFileManager.Others.ListAction;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,6 +60,9 @@ public class MainFrame extends JFrame {
         listPanelMain = new ListPanelV2("File List");
         listPanelMain.listModel.addListDataListener(new MainPanelToPreviewListener());
         listPanelMain.list.addKeyListener(new DelListener(listPanelMain.listModel,listPanelMain.list));
+         Action edit = new EditListAction();
+         ListAction la = new ListAction(listPanelMain.list, edit);
+
         listPanelPreview = new ListPanelV2("File Preview");
         listPanelPreview.list.setCellRenderer(new ColorListRender());
 

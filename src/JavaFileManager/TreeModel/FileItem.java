@@ -45,7 +45,7 @@ public class FileItem implements FileTreeItem {
         return file.getName();
     }
 
-    File getFile() {
+    public File getFile() {
         return file;
     }
 }
