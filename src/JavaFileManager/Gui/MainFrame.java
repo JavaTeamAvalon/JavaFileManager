@@ -55,10 +55,10 @@ public class MainFrame extends JFrame {
 
         //Init Components
         TreePanel treePanel = new TreePanel();
-        listPanelMain = new ListPanelV2("Лист файлов");
+        listPanelMain = new ListPanelV2("File List");
         listPanelMain.listModel.addListDataListener(new MainPanelToPreviewListener());
         listPanelMain.list.addKeyListener(new DelListener(listPanelMain.listModel,listPanelMain.list));
-        listPanelPreview = new ListPanelV2("Превью");
+        listPanelPreview = new ListPanelV2("File Preview");
         listPanelPreview.list.setCellRenderer(new ColorListRender());
 
         TabbedPanelGui tabbedPaneGui = new TabbedPanelGui();

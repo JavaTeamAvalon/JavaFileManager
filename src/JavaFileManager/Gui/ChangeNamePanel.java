@@ -2,6 +2,7 @@ package JavaFileManager.Gui;
 
 
 import JavaFileManager.Listeners.ChengesToPreview;
+import JavaFileManager.Listeners.CurrentDateListener;
 import JavaFileManager.Listeners.EnterBtnListener;
 
 import javax.swing.*;
@@ -23,8 +24,9 @@ public JComboBox combo = new JComboBox();
 private ButtonGroup groupRadioBeginEnd = new ButtonGroup();
 private ButtonGroup groupRadioDate = new ButtonGroup();
 public JFormattedTextField text= new JFormattedTextField();   // Текстовое поля для форматированного текста
-JRadioButton beginRButton = new JRadioButton("В начало",true);
-public JRadioButton endRButton = new JRadioButton("В конец",false);
+JRadioButton beginRButton = new JRadioButton("End",true);
+public JRadioButton endRButton = new JRadioButton("Begin",false);
+private JButton currentDateBtn = new JButton("Current Date");
 
 
 
@@ -49,7 +51,8 @@ public JRadioButton endRButton = new JRadioButton("В конец",false);
         comboTextBoxPanel.add(combo);
 
         comboTextBoxPanel.add(text);
-        text.setText("Привет");
+
+
         combo.addItem("Prefix | Suffix");
         combo.addItem("Date | Time");
         combo.addActionListener(comboListener);
@@ -59,11 +62,13 @@ public JRadioButton endRButton = new JRadioButton("В конец",false);
             inputPanel.add(dateExamplePanel(),BorderLayout.CENTER);
 
 
+
         //MainPanel
         add(radioBoxPanel,BorderLayout.NORTH);
         add(inputPanel);
 
         tamplateMethodEntry("dd/mm/yyy");
+
         text.getDocument().addDocumentListener(new ChengesToPreview());
         text.addKeyListener(new EnterBtnListener());
     }
@@ -126,14 +131,18 @@ public JRadioButton endRButton = new JRadioButton("В конец",false);
         datepanel.add(rDate1);
         datepanel.add(rDate2);
         datepanel.add(rDate3);
-       // datepanel.add(rDate4);
+        datepanel.add(currentDateBtn);
+        currentDateBtn.addActionListener(new CurrentDateListener());
+        // datepanel.add(rDate4);
         datepanel.setVisible(false);
+
         return datepanel;
     }
 
 // Метод отображения TextField
     void tamplateMethodEntry(String dateTamplate) {
        MaskFormatter dateMask = null;
+
 
        switch (dateTamplate) {
            case "null": {
@@ -195,6 +204,7 @@ public JRadioButton endRButton = new JRadioButton("В конец",false);
         text.getDocument().addDocumentListener(new ChengesToPreview());
         comboTextBoxPanel.validate();
 
+
     }
 
     //Листенер на радио кнопки выбора шаблона даты и изменение текстового поля
@@ -202,18 +212,23 @@ public JRadioButton endRButton = new JRadioButton("В конец",false);
     {
         public void actionPerformed(ActionEvent event)
         {
+
             switch (((JRadioButton)event.getSource()).getText() ) {
                 case "DD/MM/YYYY" :
                     tamplateMethodEntry("dd/mm/yyyy");
+                    CurrentDateListener.dateTemplate = 0;
                     break;
                 case "YYYY/MM/DD" :
                     tamplateMethodEntry("yyyy/mm/dd");
+                    CurrentDateListener.dateTemplate = 1;
                     break;
                 case "HH/MM" :
                     tamplateMethodEntry("hh/mm");
+                    CurrentDateListener.dateTemplate = 2;
                     break;
                 case "YYYY/MM/DD + HH/MM" :
                     tamplateMethodEntry("yyyy/mm/dd/hh/mm");
+                    CurrentDateListener.dateTemplate = 3;
                     break;
                 default:
                     break;
@@ -247,11 +262,13 @@ public JRadioButton endRButton = new JRadioButton("В конец",false);
            switch (combo.getSelectedIndex()) {
                 case 0 : {
                     datepanel.setVisible(false);
+                    currentDateBtn.setVisible(false);
                     tamplateMethodEntry("null");
                     break;
                 }
                 case 1 :
                     datepanel.setVisible(true);
+                    currentDateBtn.setVisible(true);
                     tamplateMethodEntry("dd/mm/yyyy");
                     break;
 

@@ -76,7 +76,7 @@ public class DoChangesListener implements ActionListener {
                 break;
             }
             case 2:{
-                String modifiedDate,owner,createDate;
+                String modifiedDate,createDate;
 
                 ArrayList<File> currentfiles = new ArrayList<>();
                 if (!MainFrame.listPanelMain.getList().isEmpty())
@@ -84,24 +84,20 @@ public class DoChangesListener implements ActionListener {
 
                 createDate = TabbedPanelGui.attributesPanel.createDateTxt.getText();
                 modifiedDate = TabbedPanelGui.attributesPanel.modifiedDateTxt.getText();
-                owner = TabbedPanelGui.attributesPanel.ownerTxt.getText();
-                if(!AttributesPanel.checkCorrectFields(createDate)||!AttributesPanel.checkCorrectFields(modifiedDate)){
+                if(!AttributesPanel.checkCorrectFields(createDate)&&!AttributesPanel.checkCorrectFields(modifiedDate)){
                     new WarningFrame();
                     TabbedPanelGui.attributesPanel.createDateTxt.setText("");
                     TabbedPanelGui.attributesPanel.modifiedDateTxt.setText("");
                     return;
                 }
-
-
                 try {
+                    if (!AttributesPanel.checkCreateLessModified(createDate,modifiedDate))
+                        return;
                     doSomething.changeCreateDate(currentfiles,createDate);
                     TabbedPanelGui.attributesPanel.createDateTxt.setText("");
                     doSomething.changeLastModifiedDate(currentfiles,modifiedDate);
                     TabbedPanelGui.attributesPanel.modifiedDateTxt.setText("");
-//                    if (!owner.equals(""))
-//                        doSomething.changeOwner(currentfiles,owner);
-
-
+//
                 } catch (ParseException ignore) {}
                 catch (IOException ignore) {}
             }

@@ -1,15 +1,16 @@
 package JavaFileManager.Gui;
 
-import JavaFileManager.Listeners.ChengesToPreview;
+import JavaFileManager.Listeners.CopyCreateDateToModified;
+import JavaFileManager.Listeners.CurrentDateListener;
 import JavaFileManager.Listeners.EnterBtnListener;
 
 import javax.swing.*;
-import javax.swing.border.EtchedBorder;
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AttributesPanel extends JPanel {
 
@@ -19,6 +20,8 @@ public class AttributesPanel extends JPanel {
     public JFormattedTextField createDateTxt;//= new JFormattedTextField();
     public JFormattedTextField modifiedDateTxt;//= new JFormattedTextField();
     public JTextField ownerTxt= new JTextField();
+    private JButton copyDateBtn = new JButton(">>");
+    private JButton currentDateBtn = new JButton("Current Date");
 
 
     public AttributesPanel() {
@@ -26,6 +29,7 @@ public class AttributesPanel extends JPanel {
 //        createDateTxt.setPreferredSize(new Dimension(130,25));
        // modifiedDateTxt.setPreferredSize(new Dimension(130, 25));
         ownerTxt.setPreferredSize(new Dimension(150, 25));
+        currentDateBtn.setPreferredSize(new Dimension(150,17));
 
         changeCreateDate.setLayout(new BoxLayout(changeCreateDate, BoxLayout.Y_AXIS));
         changeModifiesDate.setLayout(new BoxLayout(changeModifiesDate, BoxLayout.Y_AXIS));
@@ -34,28 +38,35 @@ public class AttributesPanel extends JPanel {
         createDateTxt = tamplateMethodEntry();
         modifiedDateTxt = tamplateMethodEntry();
 
-//        createDateTxt =  new JFormattedTextField();
-//        modifiedDateTxt = new JFormattedTextField();
-
         changeCreateDate.add(new JLabel("Create Date"));
         changeCreateDate.add(createDateTxt);
+        createDateTxt.addKeyListener(new EnterBtnListener());
         changeCreateDate.add(new Label("dd-MM-yyyy-HH-mm-ss"));
+
+
         changeModifiesDate.add(new JLabel("Modified Date"));
         changeModifiesDate.add(modifiedDateTxt);
+        modifiedDateTxt.addKeyListener(new EnterBtnListener());
         changeModifiesDate.add(new Label("dd-MM-yyyy-HH-mm-ss"));
-        changeOwner.add(new JLabel("Owner"));
-        changeOwner.add(ownerTxt);
+       // changeOwner.add(new JLabel("Owner"));
+        //changeOwner.add(ownerTxt);
+
+        copyDateBtn.setPreferredSize(new Dimension(50,17));
+        currentDateBtn.addActionListener(new CurrentDateListener(4));
+
 
 
         //MainPanel
         this.setLayout(new FlowLayout(FlowLayout.LEFT));
         add(changeCreateDate);
+        add(copyDateBtn);
         add(changeModifiesDate);
-        add(changeOwner);
+        add(currentDateBtn,new FlowLayout());
+
 
     }
 
-        ///////
+
     JFormattedTextField tamplateMethodEntry() {
         JFormattedTextField text;
             MaskFormatter dateMask = null;
@@ -71,15 +82,9 @@ public class AttributesPanel extends JPanel {
 
             text = new JFormattedTextField(dateMask);
             text.setPreferredSize(new Dimension(150,25));
-
-//            text.setHorizontalAlignment(JTextField.LEFT);
-//            comboTextBoxPanel.add(text);
-//            text.getDocument().addDocumentListener(new ChengesToPreview());
-//            comboTextBoxPanel.validate();
-
             return text;
         }
-        /////////
+
 
     public static boolean checkCorrectFields (String s) {
         boolean flag = false;
@@ -99,6 +104,18 @@ public class AttributesPanel extends JPanel {
             }
 
 
+        }
+        return flag;
+    }
+
+    public static boolean checkCreateLessModified (String create,String modified) throws ParseException {
+        boolean flag = true;
+        DateFormat format = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss");
+        Date createDate = format.parse(create);
+        Date modifiedDate = format.parse(modified);
+        if (createDate.compareTo(modifiedDate)>0){
+            new WarningFrame("ModifiedDate must be older then CreateDate");
+            flag = false;
         }
         return flag;
     }

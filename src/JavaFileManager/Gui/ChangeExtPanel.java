@@ -48,9 +48,9 @@ public class ChangeExtPanel extends JPanel{
         newExtPanel.setLayout(new BoxLayout(newExtPanel,BoxLayout.Y_AXIS));
         curExtField.setPreferredSize(new Dimension(100,25));
         newExtField.setPreferredSize(new Dimension(100,25));
-            currentExtPanel.add(new JLabel("Текущее расширение"));
+            currentExtPanel.add(new JLabel("Current Expansion"));
             currentExtPanel.add(curExtField);
-            newExtPanel.add(new JLabel("Новое расширение"));
+            newExtPanel.add(new JLabel("New Expansion"));
             newExtPanel.add(newExtField);
 
             newExtField.getDocument().addDocumentListener(new ChengesToPreview());
